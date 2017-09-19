@@ -1,0 +1,66 @@
+#include <Strela.h> 
+
+int t; 
+
+void setup() { 
+t = 0; 
+Serial.begin(9600); 
+// put your setup code here, to run once: 
+uPinMode(L1,OUTPUT); 
+uPinMode(S3,INPUT); 
+uPinMode(P9,INPUT); 
+//uPinMode(P1,OUTPUT); 
+} 
+
+void loop() { 
+// put your main code here, to run repeatedly: 
+uDigitalWrite(L1,HIGH); 
+// delay(1000); 
+uDigitalWrite(L1,LOW); 
+// delay(1000); 
+int s; 
+s= uDigitalRead(S3); // Цифровое считыывание 
+if ( uDigitalRead(S3) ){ 
+uDigitalWrite(L2,HIGH); 
+} else { 
+uDigitalWrite(L2,LOW); 
+} 
+
+int s2; 
+s2= uDigitalRead(P9); 
+if ( s2 == HIGH ){ 
+uDigitalWrite(L3,HIGH); 
+} else { 
+uDigitalWrite(L3,LOW); 
+} 
+// минус выводим на сигнал что бы снять статику 
+// потом на минус ставим резистор и + напрямую ток течет по минимальному сопротивлению )) 
+/// Шим моде устонавливать не обязательно 
+/* t++; 
+if (t>185) t=0; 
+uAnalogWrite(P1,t); 
+delay(35); 
+*/ 
+
+/* for(int i=1;i<=205;i++){ 
+uAnalogWrite(P1,i); 
+delay(109); 
+}; 
+*/ 
+// Serial.print(78); 
+// Serial.print(789,DEC); 
+
+int inc; 
+// считывает аски код , 0 -48 , 1 -49 
+if (Serial.available()>0){ 
+inc = Serial.read(); 
+uAnalogWrite(P1,inc); 
+Serial.print("reciv"); 
+Serial.println(inc); 
+inc = Serial.read(); 
+Serial.print("rev"); 
+Serial.println(inc); 
+
+} 
+
+}
