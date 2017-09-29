@@ -1,0 +1,20 @@
+********************************
+#include <Servo.h>
+Servo myservo;
+сонар
+void setup(){
+	uPinMode(P2,INPUT);
+	uPinMode(P1,OUTPUT);
+	Serial.begin(9600);
+	myservo.attach(P3);
+}
+
+void main(){
+myservo.write(120); // 0-180 мотор
+uDigitalWrite(P1,HIGH);
+uDigitalWite(P1,LOW);
+
+int distance=pulseIn(P2,HIGHT)/50;
+tone(BUZZER,240,50); // внутренний динамик
+}
+**************************
